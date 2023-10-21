@@ -12,6 +12,13 @@ public class GamePanel extends JPanel implements Runnable{
     final int screenWidth = maxScreenCol * tileSize;
     final int screenHeight = maxScreenRow * tileSize;
 
+    int FPS = 60;
+
+    int playerX = 0;
+    int playerY = 0;
+
+    int playerSpeed = 2;
+
     Thread gameThread;
     KeyHandler keyHandler = new KeyHandler();
 
@@ -30,17 +37,45 @@ public class GamePanel extends JPanel implements Runnable{
     }
     @Override
     public void run() {
+
+        double drawInterval = (double) 1000000000 /FPS;
+        double nextDrawTime = System.nanoTime() + drawInterval;
         while (gameThread != null) {
             //System.out.println("Game Thread is active! LESGOO");
             //1. Update
             update();
             //2. DrawCall
             repaint();
+
+
+            try {
+                double remainingTime = nextDrawTime - System.nanoTime();
+                remainingTime = remainingTime/1000000;
+                if(remainingTime < 0){
+                    remainingTime = 0;
+                }
+                Thread.sleep((long) remainingTime);
+
+                nextDrawTime += drawInterval;
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 
     public void update(){
-
+        if(keyHandler.downPressed){
+            playerY += playerSpeed;
+        }
+        if(keyHandler.upPressed){
+            playerY -= playerSpeed;
+        }
+        if(keyHandler.leftPressed){
+            playerX -= playerSpeed;
+        }
+        if(keyHandler.rightPressed){
+            playerX += playerSpeed;
+        }
     }
 
     public void paintComponent(Graphics graphics){
@@ -49,9 +84,7 @@ public class GamePanel extends JPanel implements Runnable{
 
         Graphics2D graphics2D = (Graphics2D) graphics;
         graphics2D.setColor(Color.WHITE);
-        graphics2D.fillRect(0, 0, tileSize, tileSize);
-        graphics2D.setColor(Color.BLACK);
-        graphics2D.fillRect(tileSize , 0, tileSize, tileSize);
+        graphics2D.fillRect(playerX, playerY, tileSize, tileSize);
 
     }
 }
