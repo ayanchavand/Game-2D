@@ -28,9 +28,27 @@ public class GamePanel extends JPanel implements Runnable{
     @Override
     public void run() {
         while (gameThread != null) {
-            System.out.println("Game Thread is active! LESGOO");
+            //System.out.println("Game Thread is active! LESGOO");
             //1. Update
+            update();
             //2. DrawCall
+            repaint();
         }
+    }
+
+    public void update(){
+
+    }
+
+    public void paintComponent(Graphics graphics){
+
+        super.paintComponent(graphics);
+
+        Graphics2D graphics2D = (Graphics2D) graphics;
+        graphics2D.setColor(Color.WHITE);
+        graphics2D.fillRect(0, 0, tileSize, tileSize);
+        graphics2D.setColor(Color.BLACK);
+        graphics2D.fillRect(tileSize , 0, tileSize, tileSize);
+
     }
 }
