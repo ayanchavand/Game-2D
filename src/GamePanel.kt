@@ -3,13 +3,14 @@ import javax.swing.JPanel
 
 class GamePanel : JPanel(), Runnable {
     // RENDER SETTINGS
-    val screenWidth = 1920
-    val screenHeight = 1080
+    val screenWidth = 1000
+    val screenHeight = 800
     var FPS = 60
 
     var gameThread: Thread? = null
     val objectHandler = ObjectHandler()
     var keyHandler = KeyHandler()
+    var physics = Physics(objectHandler)
 
 
     fun initialize(){
@@ -73,6 +74,7 @@ class GamePanel : JPanel(), Runnable {
     // Method to update game state
     fun update() {
         objectHandler.updateAll()
+        physics.applyGravity()
     }
 
     // Method to render graphics

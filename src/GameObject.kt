@@ -2,6 +2,7 @@ import java.awt.Color
 import java.awt.Graphics2D
 
 open class GameObject(
+    val mass: Float = 10f,
     var positionX: Int = 0,
     var positionY:Int = 0,
     val scaleX: Int = 40,
@@ -30,7 +31,9 @@ open class GameObject(
             positionX += speed
         }
         // Prevent the object from moving outside the screen boundaries
-        positionX = positionX.coerceIn(0, 1920 - scaleX)
-        positionY = positionY.coerceIn(0, 1080 - scaleY)
+        positionX = positionX.coerceIn(0, 1000 - scaleX)
+        positionY = positionY.coerceIn(0, 800 - scaleY)
+
+
     }
 }

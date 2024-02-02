@@ -20,6 +20,7 @@ fun main() {
         window.setLocationRelativeTo(null)
         // Make the window visible
         window.isVisible = true
+        window.isResizable = true
         // Start the game thread in the GamePanel instance
         gamePanel.startGameThread()
         gamePanel.initialize()
