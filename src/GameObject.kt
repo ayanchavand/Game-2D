@@ -8,7 +8,8 @@ open class GameObject(
     val scaleY: Int = 40,
     val speed: Int = 2,
     val keyHandler: KeyHandler,
-    val color: Color = Color.WHITE
+    val color: Color = Color.WHITE,
+    val isKinematic: Boolean = true
 ){
 
     open fun render(graphics2D: Graphics2D){
@@ -28,5 +29,8 @@ open class GameObject(
         if (keyHandler.rightPressed) {
             positionX += speed
         }
+        // Prevent the object from moving outside the screen boundaries
+        positionX = positionX.coerceIn(0, 1920 - scaleX)
+        positionY = positionY.coerceIn(0, 1080 - scaleY)
     }
 }

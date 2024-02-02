@@ -1,7 +1,4 @@
-import java.awt.Color
-import java.awt.Dimension
-import java.awt.Graphics
-import java.awt.Graphics2D
+import java.awt.*
 import javax.swing.JPanel
 
 class GamePanel : JPanel(), Runnable {
@@ -83,5 +80,8 @@ class GamePanel : JPanel(), Runnable {
         super.paintComponent(graphics)
         val graphics2D = graphics as Graphics2D
         objectHandler.renderAll(graphics2D)
+        graphics2D.font = Font("Arial", Font.BOLD, 30) // Change font size
+        graphics2D.color = Color.white // Change text color
+        graphics2D.drawString("Send help", 1370, 30)
     }
 }
