@@ -14,9 +14,9 @@ class GamePanel : JPanel(), Runnable {
 
 
     fun initialize(){
-        val obj1 = GameObject(color = Color.RED, keyHandler = keyHandler, speed = 6)
-        val obj2 = GameObject(color = Color.BLUE, keyHandler = keyHandler)
-        val obj3 = GameObject(color = Color.GREEN, keyHandler = keyHandler, speed = 4)
+        val obj1 = GameObject(color = Color	(219,100,100), keyHandler = keyHandler, speed = 6)
+        val obj2 = GameObject(color = Color(46,117,130), keyHandler = keyHandler)
+        val obj3 = GameObject(color = Color	(109,204,109), keyHandler = keyHandler, speed = 4)
 
         objectHandler.addObject(obj1)
         objectHandler.addObject(obj2)
@@ -46,14 +46,20 @@ class GamePanel : JPanel(), Runnable {
 
     // Main game loop
     override fun run() {
+
+        var previousTime = System.nanoTime()
         // Timing variables for consistent frame rate
         val drawInterval = 1000000000.0 / FPS
         var nextDrawTime = System.nanoTime() + drawInterval
 
         // Game loop
         while (gameThread != null) {
+            val currentTime = System.nanoTime() // Get the current time
+            val deltaTime = (currentTime - previousTime) / 1_000_000_000.0 // Calculate delta time in seconds
+            previousTime = currentTime
+
             // Update game state
-            update()
+            update(deltaTime)
             // Repaint the screen
             repaint()
             // Control frame rate
@@ -72,7 +78,7 @@ class GamePanel : JPanel(), Runnable {
     }
 
     // Method to update game state
-    fun update() {
+    fun update(deltaTime: Double) {
         objectHandler.updateAll()
         physics.applyGravity()
     }
