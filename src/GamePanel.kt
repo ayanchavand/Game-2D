@@ -21,6 +21,9 @@ class GamePanel : JPanel(), Runnable {
         objectHandler.addObject(obj1)
         objectHandler.addObject(obj2)
         objectHandler.addObject(obj3)
+
+        val cmd = cmd(objectHandler)
+        cmd.start()
     }
     // GamePanel constructor for applying the window settings
     init {
